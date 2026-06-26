@@ -3,3 +3,4 @@ rapidfuzz>=3.5
 pyarabic>=0.6.15
 pandas>=2.0
 pytest>=7.4
+yt-dlp>=2024.1.0

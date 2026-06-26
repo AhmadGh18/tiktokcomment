@@ -8,6 +8,7 @@ import sys
 from .matcher import DEFAULT_FUZZ_THRESHOLD, DEFAULT_MIN_ALIAS_LEN
 from .report import analyze
 from .scraper import import_cookies, login, scrape_profile
+from .scraper_ytdlp import scrape_profile_ytdlp
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -44,6 +45,23 @@ def _build_parser() -> argparse.ArgumentParser:
         metavar="PORT",
         help="Attach to a Chrome you already started with --remote-debugging-port=PORT. Bypasses bot detection.",
     )
+    s.add_argument(
+        "--backend",
+        choices=["playwright", "ytdlp"],
+        default="playwright",
+        help="Scraping backend. 'ytdlp' uses yt-dlp (no browser, bypasses TikTok's web bot wall).",
+    )
+    s.add_argument(
+        "--cookies-browser",
+        default="chrome",
+        choices=["chrome", "msedge", "firefox", "brave", "none"],
+        help="Browser to pull TikTok cookies from for ytdlp backend (default: chrome). Use 'none' to disable.",
+    )
+    s.add_argument(
+        "--cookies-file",
+        default=None,
+        help="Path to a Netscape cookies.txt file (overrides --cookies-browser). Use for Chrome on Win11.",
+    )
 
     a = sub.add_parser("analyze", help="Aggregate cached comments into a ranked report.")
     a.add_argument("--username", default=None, help="Used to build clickable video URLs in the report.")
@@ -58,6 +76,9 @@ def _build_parser() -> argparse.ArgumentParser:
     r.add_argument("--refresh", action="store_true")
     r.add_argument("--browser", default="chrome")
     r.add_argument("--attach", type=int, default=None, metavar="PORT")
+    r.add_argument("--backend", choices=["playwright", "ytdlp"], default="playwright")
+    r.add_argument("--cookies-browser", default="chrome", choices=["chrome", "msedge", "firefox", "brave", "none"])
+    r.add_argument("--cookies-file", default=None)
     r.add_argument("--fuzz-threshold", type=int, default=DEFAULT_FUZZ_THRESHOLD)
     r.add_argument("--min-alias-len", type=int, default=DEFAULT_MIN_ALIAS_LEN)
 
@@ -78,16 +99,27 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.command == "scrape":
-        channel = None if args.browser == "chromium" else args.browser
-        summary = scrape_profile(
-            username=args.username,
-            max_videos=args.max_videos,
-            max_comments_per_video=args.max_comments,
-            headless=args.headless,
-            refresh=args.refresh,
-            browser_channel=channel,
-            attach_port=args.attach,
-        )
+        if args.backend == "ytdlp":
+            cb = None if args.cookies_browser == "none" else args.cookies_browser
+            summary = scrape_profile_ytdlp(
+                username=args.username,
+                max_videos=args.max_videos,
+                max_comments_per_video=args.max_comments,
+                refresh=args.refresh,
+                cookies_from_browser=cb,
+                cookies_file=args.cookies_file,
+            )
+        else:
+            channel = None if args.browser == "chromium" else args.browser
+            summary = scrape_profile(
+                username=args.username,
+                max_videos=args.max_videos,
+                max_comments_per_video=args.max_comments,
+                headless=args.headless,
+                refresh=args.refresh,
+                browser_channel=channel,
+                attach_port=args.attach,
+            )
         print(f"\nDone. {summary}")
         return 0
 
@@ -100,16 +132,27 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.command == "run":
-        channel = None if args.browser == "chromium" else args.browser
-        scrape_profile(
-            username=args.username,
-            max_videos=args.max_videos,
-            max_comments_per_video=args.max_comments,
-            headless=args.headless,
-            refresh=args.refresh,
-            browser_channel=channel,
-            attach_port=args.attach,
-        )
+        if args.backend == "ytdlp":
+            cb = None if args.cookies_browser == "none" else args.cookies_browser
+            scrape_profile_ytdlp(
+                username=args.username,
+                max_videos=args.max_videos,
+                max_comments_per_video=args.max_comments,
+                refresh=args.refresh,
+                cookies_from_browser=cb,
+                cookies_file=args.cookies_file,
+            )
+        else:
+            channel = None if args.browser == "chromium" else args.browser
+            scrape_profile(
+                username=args.username,
+                max_videos=args.max_videos,
+                max_comments_per_video=args.max_comments,
+                headless=args.headless,
+                refresh=args.refresh,
+                browser_channel=channel,
+                attach_port=args.attach,
+            )
         analyze(
             username=args.username,
             fuzz_threshold=args.fuzz_threshold,

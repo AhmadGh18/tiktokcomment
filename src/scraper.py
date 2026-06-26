@@ -266,16 +266,19 @@ def _scrape_comments_for_video(
     page.on("response", _on_response)
     try:
         page.goto(video_url, wait_until="domcontentloaded")
+        comment_selector = (
+            "[data-e2e='comment-level-1'], [data-e2e='comment-item'], "
+            "div[class*='CommentItem'], div[class*='DivCommentItemWrapper']"
+        )
         for attempt in range(2):
             try:
-                page.wait_for_selector(
-                    "[data-e2e='comment-level-1'], [data-e2e='comment-item']", timeout=15_000
-                )
+                page.wait_for_selector(comment_selector, timeout=12_000)
                 break
             except PlaywrightTimeoutError:
                 if attempt == 1:
                     break
                 _wait_for_human(page, f"comments for video {video_id}")
+                _polite_sleep(1.5, 2.5)
 
         for _ in range(40):
             if len(captured) >= max_comments:
@@ -283,12 +286,17 @@ def _scrape_comments_for_video(
             page.evaluate(
                 """
                 () => {
-                  const items = document.querySelectorAll("[data-e2e='comment-level-1'], [data-e2e='comment-item']");
+                  const sel = "[data-e2e='comment-level-1'], [data-e2e='comment-item'], div[class*='CommentItem'], div[class*='DivCommentItemWrapper']";
+                  const items = document.querySelectorAll(sel);
                   if (items.length) {
                     items[items.length - 1].scrollIntoView({ block: 'end' });
-                  } else {
-                    window.scrollBy(0, window.innerHeight);
                   }
+                  const scrollables = Array.from(document.querySelectorAll('div')).filter(d => {
+                    const s = getComputedStyle(d);
+                    return (s.overflowY === 'auto' || s.overflowY === 'scroll') && d.scrollHeight > d.clientHeight + 100;
+                  });
+                  scrollables.forEach(s => s.scrollTop = s.scrollHeight);
+                  window.scrollBy(0, window.innerHeight);
                 }
                 """
             )
