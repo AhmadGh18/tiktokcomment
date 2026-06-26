@@ -1,0 +1,5 @@
+playwright>=1.40
+rapidfuzz>=3.5
+pyarabic>=0.6.15
+pandas>=2.0
+pytest>=7.4

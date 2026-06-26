@@ -1,0 +1,807 @@
+[
+  {
+    "id": "beirut",
+    "canonical_en": "Beirut",
+    "canonical_ar": "بيروت",
+    "governorate": "Beirut",
+    "aliases": ["beyrouth", "beyrout", "bayrut", "beirout", "bairut"]
+  },
+  {
+    "id": "achrafieh",
+    "canonical_en": "Achrafieh",
+    "canonical_ar": "الأشرفية",
+    "governorate": "Beirut",
+    "aliases": ["ashrafieh", "achrafiyeh", "ashrafiyeh", "achrafyeh"]
+  },
+  {
+    "id": "hamra",
+    "canonical_en": "Hamra",
+    "canonical_ar": "الحمراء",
+    "governorate": "Beirut",
+    "aliases": ["hamraa", "el hamra", "7amra"]
+  },
+  {
+    "id": "bourj-hammoud",
+    "canonical_en": "Bourj Hammoud",
+    "canonical_ar": "برج حمود",
+    "governorate": "Mount Lebanon",
+    "aliases": ["bourj hamoud", "borj hammoud", "bourj 7amoud", "burj hammud"]
+  },
+  {
+    "id": "jounieh",
+    "canonical_en": "Jounieh",
+    "canonical_ar": "جونية",
+    "governorate": "Mount Lebanon",
+    "aliases": ["jouniyeh", "jouniye", "junia", "jounié"]
+  },
+  {
+    "id": "jbeil",
+    "canonical_en": "Byblos",
+    "canonical_ar": "جبيل",
+    "governorate": "Mount Lebanon",
+    "aliases": ["jbail", "byblos", "jbeil", "gebail"]
+  },
+  {
+    "id": "baabda",
+    "canonical_en": "Baabda",
+    "canonical_ar": "بعبدا",
+    "governorate": "Mount Lebanon",
+    "aliases": ["ba3abda", "baabdaa"]
+  },
+  {
+    "id": "aley",
+    "canonical_en": "Aley",
+    "canonical_ar": "عاليه",
+    "governorate": "Mount Lebanon",
+    "aliases": ["3aley", "aaley", "alayh", "3aliyeh"]
+  },
+  {
+    "id": "broummana",
+    "canonical_en": "Broummana",
+    "canonical_ar": "برمانا",
+    "governorate": "Mount Lebanon",
+    "aliases": ["brummana", "broumana", "broumanna", "brumana"]
+  },
+  {
+    "id": "beit-mery",
+    "canonical_en": "Beit Mery",
+    "canonical_ar": "بيت مري",
+    "governorate": "Mount Lebanon",
+    "aliases": ["bait mery", "baytmery", "beit meri", "bit meri"]
+  },
+  {
+    "id": "dbayeh",
+    "canonical_en": "Dbayeh",
+    "canonical_ar": "ضبية",
+    "governorate": "Mount Lebanon",
+    "aliases": ["dbaye", "dbayé", "dbayyeh", "dbayé"]
+  },
+  {
+    "id": "antelias",
+    "canonical_en": "Antelias",
+    "canonical_ar": "انطلياس",
+    "governorate": "Mount Lebanon",
+    "aliases": ["antélias", "antilyas", "intilyas"]
+  },
+  {
+    "id": "zalka",
+    "canonical_en": "Zalka",
+    "canonical_ar": "الزلقا",
+    "governorate": "Mount Lebanon",
+    "aliases": ["zalqa", "el zalka", "zalca"]
+  },
+  {
+    "id": "mansourieh",
+    "canonical_en": "Mansourieh",
+    "canonical_ar": "المنصورية",
+    "governorate": "Mount Lebanon",
+    "aliases": ["mansouriyeh", "mansouriye", "mansouriyé", "el mansouriyeh"]
+  },
+  {
+    "id": "bikfaya",
+    "canonical_en": "Bikfaya",
+    "canonical_ar": "بكفيا",
+    "governorate": "Mount Lebanon",
+    "aliases": ["bikfayya", "bekfaya", "biqfaya"]
+  },
+  {
+    "id": "zouk-mosbeh",
+    "canonical_en": "Zouk Mosbeh",
+    "canonical_ar": "ذوق مصبح",
+    "governorate": "Mount Lebanon",
+    "aliases": ["zouk mosbe7", "zouk", "zouk msobeh", "zouq mosbeh"]
+  },
+  {
+    "id": "zouk-mikael",
+    "canonical_en": "Zouk Mikael",
+    "canonical_ar": "ذوق مكايل",
+    "governorate": "Mount Lebanon",
+    "aliases": ["zouk mikayel", "zouk mkayel", "zouq mikael"]
+  },
+  {
+    "id": "kaslik",
+    "canonical_en": "Kaslik",
+    "canonical_ar": "الكسليك",
+    "governorate": "Mount Lebanon",
+    "aliases": ["kessleik", "kessliq", "el kaslik", "kasleek"]
+  },
+  {
+    "id": "dora",
+    "canonical_en": "Dora",
+    "canonical_ar": "الدورة",
+    "governorate": "Mount Lebanon",
+    "aliases": ["doura", "el dora"]
+  },
+  {
+    "id": "hazmieh",
+    "canonical_en": "Hazmieh",
+    "canonical_ar": "الحازمية",
+    "governorate": "Mount Lebanon",
+    "aliases": ["7azmieh", "hazmiyeh", "hazmiye", "el hazmieh"]
+  },
+  {
+    "id": "mtein",
+    "canonical_en": "Mtein",
+    "canonical_ar": "المتين",
+    "governorate": "Mount Lebanon",
+    "aliases": ["el mtein", "mtain", "metein"]
+  },
+  {
+    "id": "kfarchima",
+    "canonical_en": "Kfarchima",
+    "canonical_ar": "كفرشيما",
+    "governorate": "Mount Lebanon",
+    "aliases": ["kfar chima", "kfarshima", "kfar shima"]
+  },
+  {
+    "id": "beiteddine",
+    "canonical_en": "Beiteddine",
+    "canonical_ar": "بيت الدين",
+    "governorate": "Mount Lebanon",
+    "aliases": ["beit eddine", "beit el dine", "beit ed deen", "bet eddine", "beiteddin"]
+  },
+  {
+    "id": "deir-el-qamar",
+    "canonical_en": "Deir el Qamar",
+    "canonical_ar": "دير القمر",
+    "governorate": "Mount Lebanon",
+    "aliases": ["deir el amar", "deir el kamar", "deir qamar", "dayr al qamar"]
+  },
+  {
+    "id": "baakline",
+    "canonical_en": "Baakline",
+    "canonical_ar": "بعقلين",
+    "governorate": "Mount Lebanon",
+    "aliases": ["ba3lin", "baaqline", "ba3qline"]
+  },
+  {
+    "id": "brih",
+    "canonical_en": "Brih",
+    "canonical_ar": "بريح",
+    "governorate": "Mount Lebanon",
+    "aliases": ["bri7", "breeh"]
+  },
+  {
+    "id": "faraya",
+    "canonical_en": "Faraya",
+    "canonical_ar": "فاريا",
+    "governorate": "Mount Lebanon",
+    "aliases": ["farayya", "faraiya", "fariya"]
+  },
+  {
+    "id": "faqra",
+    "canonical_en": "Faqra",
+    "canonical_ar": "فقرا",
+    "governorate": "Mount Lebanon",
+    "aliases": ["fa2ra", "faqraa", "fakra"]
+  },
+  {
+    "id": "mzaar",
+    "canonical_en": "Mzaar",
+    "canonical_ar": "المزار",
+    "governorate": "Mount Lebanon",
+    "aliases": ["mzar", "el mzaar", "mzar kfardebian"]
+  },
+  {
+    "id": "kfardebian",
+    "canonical_en": "Kfardebian",
+    "canonical_ar": "كفردبيان",
+    "governorate": "Mount Lebanon",
+    "aliases": ["kfar dibyan", "kfardibian", "kfar debian"]
+  },
+  {
+    "id": "harissa",
+    "canonical_en": "Harissa",
+    "canonical_ar": "حريصا",
+    "governorate": "Mount Lebanon",
+    "aliases": ["7arissa", "harisa", "harisaa"]
+  },
+  {
+    "id": "annaya",
+    "canonical_en": "Annaya",
+    "canonical_ar": "عنايا",
+    "governorate": "Mount Lebanon",
+    "aliases": ["3anaya", "anaya", "3annaya"]
+  },
+  {
+    "id": "damour",
+    "canonical_en": "Damour",
+    "canonical_ar": "الدامور",
+    "governorate": "Mount Lebanon",
+    "aliases": ["el damour", "damour", "ad damur"]
+  },
+  {
+    "id": "naameh",
+    "canonical_en": "Naameh",
+    "canonical_ar": "الناعمة",
+    "governorate": "Mount Lebanon",
+    "aliases": ["el naameh", "na3meh", "naameh", "na3mé"]
+  },
+  {
+    "id": "aramoun",
+    "canonical_en": "Aramoun",
+    "canonical_ar": "عرمون",
+    "governorate": "Mount Lebanon",
+    "aliases": ["3aramoun", "armoun", "3armoun"]
+  },
+  {
+    "id": "choueifat",
+    "canonical_en": "Choueifat",
+    "canonical_ar": "الشويفات",
+    "governorate": "Mount Lebanon",
+    "aliases": ["chwifat", "chwayfat", "chouifat", "shweifat"]
+  },
+  {
+    "id": "khaldeh",
+    "canonical_en": "Khaldeh",
+    "canonical_ar": "الخلدة",
+    "governorate": "Mount Lebanon",
+    "aliases": ["el khalde", "khalda", "5alde", "el khaldeh"]
+  },
+  {
+    "id": "tripoli",
+    "canonical_en": "Tripoli",
+    "canonical_ar": "طرابلس",
+    "governorate": "North",
+    "aliases": ["trablus", "trablous", "tarablous", "tarabulus", "trablos"]
+  },
+  {
+    "id": "el-mina",
+    "canonical_en": "El Mina",
+    "canonical_ar": "الميناء",
+    "governorate": "North",
+    "aliases": ["el mina", "al mina", "mina tripoli"]
+  },
+  {
+    "id": "zgharta",
+    "canonical_en": "Zgharta",
+    "canonical_ar": "زغرتا",
+    "governorate": "North",
+    "aliases": ["zgharta", "zghorta"]
+  },
+  {
+    "id": "batroun",
+    "canonical_en": "Batroun",
+    "canonical_ar": "البترون",
+    "governorate": "North",
+    "aliases": ["batrun", "el batroun", "batroon"]
+  },
+  {
+    "id": "bcharre",
+    "canonical_en": "Bcharre",
+    "canonical_ar": "بشري",
+    "governorate": "North",
+    "aliases": ["bcharreh", "bsharri", "bsharreh", "bcharré", "bsharrei"]
+  },
+  {
+    "id": "amioun",
+    "canonical_en": "Amioun",
+    "canonical_ar": "أميون",
+    "governorate": "North",
+    "aliases": ["amyoun", "amioon", "amiyoun"]
+  },
+  {
+    "id": "koura",
+    "canonical_en": "Koura",
+    "canonical_ar": "الكورة",
+    "governorate": "North",
+    "aliases": ["el koura", "al koura", "kura"]
+  },
+  {
+    "id": "chekka",
+    "canonical_en": "Chekka",
+    "canonical_ar": "شكا",
+    "governorate": "North",
+    "aliases": ["chekkaa", "shekka", "shikka"]
+  },
+  {
+    "id": "anfeh",
+    "canonical_en": "Anfeh",
+    "canonical_ar": "أنفه",
+    "governorate": "North",
+    "aliases": ["anfé", "enfeh", "enfé"]
+  },
+  {
+    "id": "ehden",
+    "canonical_en": "Ehden",
+    "canonical_ar": "إهدن",
+    "governorate": "North",
+    "aliases": ["ehden", "hadeneh"]
+  },
+  {
+    "id": "cedars",
+    "canonical_en": "Cedars of God",
+    "canonical_ar": "الأرز",
+    "governorate": "North",
+    "aliases": ["the cedars", "al arz", "el arz", "cedars lebanon", "arz el rab", "arz al rab"]
+  },
+  {
+    "id": "qadisha",
+    "canonical_en": "Qadisha Valley",
+    "canonical_ar": "وادي قاديشا",
+    "governorate": "North",
+    "aliases": ["wadi qadisha", "qadisha valley", "wadi kadisha", "kadisha"]
+  },
+  {
+    "id": "kousba",
+    "canonical_en": "Kousba",
+    "canonical_ar": "كوسبا",
+    "governorate": "North",
+    "aliases": ["kosba", "kousbaa"]
+  },
+  {
+    "id": "halba",
+    "canonical_en": "Halba",
+    "canonical_ar": "حلبا",
+    "governorate": "Akkar",
+    "aliases": ["7alba", "halbaa"]
+  },
+  {
+    "id": "qoubaiyat",
+    "canonical_en": "Qoubaiyat",
+    "canonical_ar": "القبيات",
+    "governorate": "Akkar",
+    "aliases": ["qobayat", "qubeyat", "kobayat", "kbayat"]
+  },
+  {
+    "id": "bebnine",
+    "canonical_en": "Bebnine",
+    "canonical_ar": "ببنين",
+    "governorate": "Akkar",
+    "aliases": ["bebnin", "babnin", "bibnine"]
+  },
+  {
+    "id": "andqet",
+    "canonical_en": "Andqet",
+    "canonical_ar": "عندقت",
+    "governorate": "Akkar",
+    "aliases": ["3andqet", "andket", "andakit"]
+  },
+  {
+    "id": "michmich",
+    "canonical_en": "Michmich",
+    "canonical_ar": "مشمش",
+    "governorate": "Akkar",
+    "aliases": ["meshmesh", "mishmish"]
+  },
+  {
+    "id": "akkar-el-atika",
+    "canonical_en": "Akkar el Atika",
+    "canonical_ar": "عكار العتيقة",
+    "governorate": "Akkar",
+    "aliases": ["akkar al atika", "3akkar el atika", "akkar atiqa"]
+  },
+  {
+    "id": "zahle",
+    "canonical_en": "Zahle",
+    "canonical_ar": "زحلة",
+    "governorate": "Bekaa",
+    "aliases": ["za7lé", "zahleh", "zahla", "zahlé"]
+  },
+  {
+    "id": "anjar",
+    "canonical_en": "Anjar",
+    "canonical_ar": "عنجر",
+    "governorate": "Bekaa",
+    "aliases": ["3anjar", "anjar", "anjer"]
+  },
+  {
+    "id": "chtaura",
+    "canonical_en": "Chtaura",
+    "canonical_ar": "شتورا",
+    "governorate": "Bekaa",
+    "aliases": ["chtoura", "shtoura", "shtaura"]
+  },
+  {
+    "id": "riyaq",
+    "canonical_en": "Riyaq",
+    "canonical_ar": "رياق",
+    "governorate": "Bekaa",
+    "aliases": ["ria2", "riyak", "rayak"]
+  },
+  {
+    "id": "ablah",
+    "canonical_en": "Ablah",
+    "canonical_ar": "عبلا",
+    "governorate": "Bekaa",
+    "aliases": ["3abla", "ablah", "ablaa"]
+  },
+  {
+    "id": "taanayel",
+    "canonical_en": "Taanayel",
+    "canonical_ar": "تعنايل",
+    "governorate": "Bekaa",
+    "aliases": ["ta3nayel", "taanayel", "tannayel"]
+  },
+  {
+    "id": "jdita",
+    "canonical_en": "Jdita",
+    "canonical_ar": "جديتا",
+    "governorate": "Bekaa",
+    "aliases": ["jdaita", "jdeita"]
+  },
+  {
+    "id": "karak-nuh",
+    "canonical_en": "Karak Nuh",
+    "canonical_ar": "كرك نوح",
+    "governorate": "Bekaa",
+    "aliases": ["karak nouh", "karak nu7", "kerak nuh"]
+  },
+  {
+    "id": "baalbek",
+    "canonical_en": "Baalbek",
+    "canonical_ar": "بعلبك",
+    "governorate": "Baalbek-Hermel",
+    "aliases": ["ba3labak", "balbek", "ba3lbek", "ba3lbeck", "baalbeck", "balbeck"]
+  },
+  {
+    "id": "hermel",
+    "canonical_en": "Hermel",
+    "canonical_ar": "الهرمل",
+    "governorate": "Baalbek-Hermel",
+    "aliases": ["el hermel", "hirmil", "al hermel"]
+  },
+  {
+    "id": "nabi-chit",
+    "canonical_en": "Nabi Chit",
+    "canonical_ar": "نبي شيت",
+    "governorate": "Baalbek-Hermel",
+    "aliases": ["nabi sheet", "nabichit", "nbi shit"]
+  },
+  {
+    "id": "bednayel",
+    "canonical_en": "Bednayel",
+    "canonical_ar": "بدنايل",
+    "governorate": "Baalbek-Hermel",
+    "aliases": ["bednayel", "badnayel"]
+  },
+  {
+    "id": "douris",
+    "canonical_en": "Douris",
+    "canonical_ar": "دورس",
+    "governorate": "Baalbek-Hermel",
+    "aliases": ["dores", "douris"]
+  },
+  {
+    "id": "saida",
+    "canonical_en": "Saida",
+    "canonical_ar": "صيدا",
+    "governorate": "South",
+    "aliases": ["sidon", "sayda", "saidaa", "sa3ida", "sidoun", "saydaa"]
+  },
+  {
+    "id": "tyre",
+    "canonical_en": "Tyre",
+    "canonical_ar": "صور",
+    "governorate": "South",
+    "aliases": ["sour", "sur", "tyr", "tyros", "souur"]
+  },
+  {
+    "id": "jezzine",
+    "canonical_en": "Jezzine",
+    "canonical_ar": "جزين",
+    "governorate": "South",
+    "aliases": ["jezine", "jzeen", "jezin", "jezzeen"]
+  },
+  {
+    "id": "zahrani",
+    "canonical_en": "Zahrani",
+    "canonical_ar": "الزهراني",
+    "governorate": "South",
+    "aliases": ["zahrané", "el zahrani"]
+  },
+  {
+    "id": "maghdouche",
+    "canonical_en": "Maghdouche",
+    "canonical_ar": "مغدوشة",
+    "governorate": "South",
+    "aliases": ["maghdoucheh", "magdoucheh", "maghdouché"]
+  },
+  {
+    "id": "joun",
+    "canonical_en": "Joun",
+    "canonical_ar": "جون",
+    "governorate": "South",
+    "aliases": ["jown", "joon"]
+  },
+  {
+    "id": "abra",
+    "canonical_en": "Abra",
+    "canonical_ar": "عبرا",
+    "governorate": "South",
+    "aliases": ["3abra", "ebra"]
+  },
+  {
+    "id": "ghazieh",
+    "canonical_en": "Ghazieh",
+    "canonical_ar": "الغازية",
+    "governorate": "South",
+    "aliases": ["3aziyeh", "ghaziyeh", "el ghazieh", "gaziye"]
+  },
+  {
+    "id": "sarafand",
+    "canonical_en": "Sarafand",
+    "canonical_ar": "الصرفند",
+    "governorate": "South",
+    "aliases": ["el sarafand", "sirafand", "sarafand"]
+  },
+  {
+    "id": "nabatieh",
+    "canonical_en": "Nabatieh",
+    "canonical_ar": "النبطية",
+    "governorate": "Nabatieh",
+    "aliases": ["nabatié", "nbatieh", "nabatiyeh", "nbtieh", "nabatiyé"]
+  },
+  {
+    "id": "marjayoun",
+    "canonical_en": "Marjayoun",
+    "canonical_ar": "مرجعيون",
+    "governorate": "Nabatieh",
+    "aliases": ["marj 3yun", "marjeyoun", "marj ayoun"]
+  },
+  {
+    "id": "bint-jbeil",
+    "canonical_en": "Bint Jbeil",
+    "canonical_ar": "بنت جبيل",
+    "governorate": "Nabatieh",
+    "aliases": ["bent jbeil", "bentjbail", "bint jbail", "bent jbail"]
+  },
+  {
+    "id": "hasbaya",
+    "canonical_en": "Hasbaya",
+    "canonical_ar": "حاصبيا",
+    "governorate": "Nabatieh",
+    "aliases": ["7asbaya", "hasbayya", "hasbeya"]
+  },
+  {
+    "id": "tibnine",
+    "canonical_en": "Tibnine",
+    "canonical_ar": "تبنين",
+    "governorate": "Nabatieh",
+    "aliases": ["tibneen", "tibnin", "tebnine"]
+  },
+  {
+    "id": "khiam",
+    "canonical_en": "Khiam",
+    "canonical_ar": "الخيام",
+    "governorate": "Nabatieh",
+    "aliases": ["el khiam", "5iam", "khyam", "al khiam"]
+  },
+  {
+    "id": "aitaroun",
+    "canonical_en": "Aitaroun",
+    "canonical_ar": "عيترون",
+    "governorate": "Nabatieh",
+    "aliases": ["3aitaroun", "aytroun", "aitaroun"]
+  },
+  {
+    "id": "maroun-el-ras",
+    "canonical_en": "Maroun el Ras",
+    "canonical_ar": "مارون الراس",
+    "governorate": "Nabatieh",
+    "aliases": ["maroun ras", "maroun erras", "marun el ras"]
+  },
+  {
+    "id": "yater",
+    "canonical_en": "Yater",
+    "canonical_ar": "ياطر",
+    "governorate": "Nabatieh",
+    "aliases": ["yater", "yatir"]
+  },
+  {
+    "id": "houla",
+    "canonical_en": "Houla",
+    "canonical_ar": "حولا",
+    "governorate": "Nabatieh",
+    "aliases": ["7oula", "hula", "houla"]
+  },
+  {
+    "id": "yaroun",
+    "canonical_en": "Yaroun",
+    "canonical_ar": "يارون",
+    "governorate": "Nabatieh",
+    "aliases": ["yaroun", "yarun"]
+  },
+  {
+    "id": "kfar-kila",
+    "canonical_en": "Kfar Kila",
+    "canonical_ar": "كفركلا",
+    "governorate": "Nabatieh",
+    "aliases": ["kfarkila", "kfar kela", "kfarkela"]
+  },
+  {
+    "id": "rmeish",
+    "canonical_en": "Rmeish",
+    "canonical_ar": "رميش",
+    "governorate": "Nabatieh",
+    "aliases": ["rmeesh", "rmeich", "rmeish"]
+  },
+  {
+    "id": "ainata",
+    "canonical_en": "Ainata",
+    "canonical_ar": "عيناتا",
+    "governorate": "Nabatieh",
+    "aliases": ["3ainata", "ainata", "aynata"]
+  },
+  {
+    "id": "kfar-roummane",
+    "canonical_en": "Kfar Roummane",
+    "canonical_ar": "كفررمان",
+    "governorate": "Nabatieh",
+    "aliases": ["kfar rouman", "kfarroumane", "kafr ruman"]
+  },
+  {
+    "id": "deir-mimas",
+    "canonical_en": "Deir Mimas",
+    "canonical_ar": "دير ميماس",
+    "governorate": "Nabatieh",
+    "aliases": ["dair mimas", "deir meemas"]
+  },
+  {
+    "id": "rashaya",
+    "canonical_en": "Rashaya",
+    "canonical_ar": "راشيا",
+    "governorate": "Bekaa",
+    "aliases": ["rashayya", "rashayya el wadi", "rashaiya"]
+  },
+  {
+    "id": "machghara",
+    "canonical_en": "Machghara",
+    "canonical_ar": "مشغرة",
+    "governorate": "Bekaa",
+    "aliases": ["mashghara", "mashgharah"]
+  },
+  {
+    "id": "kfar-zabad",
+    "canonical_en": "Kfar Zabad",
+    "canonical_ar": "كفر زبد",
+    "governorate": "Bekaa",
+    "aliases": ["kfarzabad", "kafr zabad"]
+  },
+  {
+    "id": "ammiq",
+    "canonical_en": "Ammiq",
+    "canonical_ar": "عميق",
+    "governorate": "Bekaa",
+    "aliases": ["3ammiq", "ammik", "ameek"]
+  },
+  {
+    "id": "bhamdoun",
+    "canonical_en": "Bhamdoun",
+    "canonical_ar": "بحمدون",
+    "governorate": "Mount Lebanon",
+    "aliases": ["bhamdun", "b7amdoun", "bahmdoun"]
+  },
+  {
+    "id": "sofar",
+    "canonical_en": "Sofar",
+    "canonical_ar": "صوفر",
+    "governorate": "Mount Lebanon",
+    "aliases": ["soufar", "sawfar"]
+  },
+  {
+    "id": "ainab",
+    "canonical_en": "Ainab",
+    "canonical_ar": "عيناب",
+    "governorate": "Mount Lebanon",
+    "aliases": ["3ainab", "aynab"]
+  },
+  {
+    "id": "souk-el-gharb",
+    "canonical_en": "Souk el Gharb",
+    "canonical_ar": "سوق الغرب",
+    "governorate": "Mount Lebanon",
+    "aliases": ["souq el gharb", "souk gharb"]
+  },
+  {
+    "id": "chouf",
+    "canonical_en": "Chouf",
+    "canonical_ar": "الشوف",
+    "governorate": "Mount Lebanon",
+    "aliases": ["el chouf", "ash shouf", "shouf", "choof"]
+  },
+  {
+    "id": "metn",
+    "canonical_en": "Metn",
+    "canonical_ar": "المتن",
+    "governorate": "Mount Lebanon",
+    "aliases": ["el metn", "metn", "matn", "el matn"]
+  },
+  {
+    "id": "kesrouan",
+    "canonical_en": "Kesrouan",
+    "canonical_ar": "كسروان",
+    "governorate": "Mount Lebanon",
+    "aliases": ["keserwan", "kesrwan", "kasrawan"]
+  },
+  {
+    "id": "ehmej",
+    "canonical_en": "Ehmej",
+    "canonical_ar": "إهمج",
+    "governorate": "Mount Lebanon",
+    "aliases": ["ehmej", "ehmeg", "ihmej"]
+  },
+  {
+    "id": "afqa",
+    "canonical_en": "Afqa",
+    "canonical_ar": "أفقا",
+    "governorate": "Mount Lebanon",
+    "aliases": ["afka", "afqaa", "afqa grotto"]
+  },
+  {
+    "id": "laqlouq",
+    "canonical_en": "Laqlouq",
+    "canonical_ar": "اللقلوق",
+    "governorate": "Mount Lebanon",
+    "aliases": ["laklouk", "laqloq", "el laqlouq"]
+  },
+  {
+    "id": "tannourine",
+    "canonical_en": "Tannourine",
+    "canonical_ar": "تنورين",
+    "governorate": "North",
+    "aliases": ["tanourine", "tannoorine", "tnourin"]
+  },
+  {
+    "id": "douma",
+    "canonical_en": "Douma",
+    "canonical_ar": "دوما",
+    "governorate": "North",
+    "aliases": ["doumaa", "douma batroun"]
+  },
+  {
+    "id": "hadath-el-jebbe",
+    "canonical_en": "Hadath el Jebbe",
+    "canonical_ar": "حدث الجبة",
+    "governorate": "North",
+    "aliases": ["hadath jebbe", "7adath el jebbe"]
+  },
+  {
+    "id": "hasroun",
+    "canonical_en": "Hasroun",
+    "canonical_ar": "حصرون",
+    "governorate": "North",
+    "aliases": ["7asroun", "hasrun"]
+  },
+  {
+    "id": "kfardlakos",
+    "canonical_en": "Kfardlakos",
+    "canonical_ar": "كفردلاقوس",
+    "governorate": "North",
+    "aliases": ["kfar dlakos", "kfardlaqos"]
+  },
+  {
+    "id": "marwaniye",
+    "canonical_en": "Marwaniye",
+    "canonical_ar": "المروانية",
+    "governorate": "South",
+    "aliases": ["marwaniyeh", "el marwaniye"]
+  },
+  {
+    "id": "ansar",
+    "canonical_en": "Ansar",
+    "canonical_ar": "أنصار",
+    "governorate": "Nabatieh",
+    "aliases": ["ansaar", "ansar"]
+  }
+]
