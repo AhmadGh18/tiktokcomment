@@ -24,10 +24,66 @@ from typing import Iterable
 from playwright.sync_api import (
     BrowserContext,
     Page,
+    Playwright,
     Response,
     TimeoutError as PlaywrightTimeoutError,
     sync_playwright,
 )
+
+
+STEALTH_SCRIPT = """
+Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
+Object.defineProperty(navigator, 'languages', { get: () => ['en-US', 'en'] });
+Object.defineProperty(navigator, 'plugins', { get: () => [1, 2, 3, 4, 5] });
+window.chrome = { runtime: {} };
+const origQuery = navigator.permissions && navigator.permissions.query;
+if (origQuery) {
+  navigator.permissions.query = (p) => p.name === 'notifications'
+    ? Promise.resolve({ state: Notification.permission })
+    : origQuery(p);
+}
+"""
+
+
+def _launch_browser(
+    pw: Playwright,
+    headless: bool,
+    channel: str | None = "chrome",
+) -> BrowserContext:
+    """Launch a persistent context. Prefer the user's real Chrome to defeat TikTok bot checks;
+    fall back to bundled Chromium if Chrome isn't installed."""
+    common_kwargs = dict(
+        user_data_dir=str(PROFILE_DIR),
+        headless=headless,
+        viewport={"width": 1280, "height": 900},
+        locale="en-US",
+        args=[
+            "--disable-blink-features=AutomationControlled",
+            "--disable-features=IsolateOrigins,site-per-process",
+        ],
+    )
+    try_order: list[str | None] = []
+    if channel:
+        try_order.append(channel)
+    try_order.extend([c for c in ("chrome", "msedge", None) if c not in try_order])
+
+    last_error: Exception | None = None
+    for ch in try_order:
+        try:
+            if ch is None:
+                ctx = pw.chromium.launch_persistent_context(
+                    user_agent=USER_AGENT, **common_kwargs
+                )
+                print("  using bundled Chromium (TikTok may flag this)")
+            else:
+                ctx = pw.chromium.launch_persistent_context(channel=ch, **common_kwargs)
+                print(f"  using installed {ch}")
+            ctx.add_init_script(STEALTH_SCRIPT)
+            return ctx
+        except Exception as e:
+            last_error = e
+            continue
+    raise RuntimeError(f"Could not launch any browser: {last_error}")
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -240,6 +296,7 @@ def scrape_profile(
     max_comments_per_video: int = 100,
     headless: bool = False,
     refresh: bool = False,
+    browser_channel: str | None = "chrome",
 ) -> dict:
     """Scrape a TikTok profile's videos and comments. Returns a summary dict."""
     PROFILE_DIR.mkdir(parents=True, exist_ok=True)
@@ -248,13 +305,7 @@ def scrape_profile(
     summary = {"username": username, "videos_total": 0, "videos_scraped": 0, "videos_cached": 0, "comments_collected": 0}
 
     with sync_playwright() as pw:
-        context: BrowserContext = pw.chromium.launch_persistent_context(
-            user_data_dir=str(PROFILE_DIR),
-            headless=headless,
-            user_agent=USER_AGENT,
-            viewport={"width": 1280, "height": 900},
-            locale="en-US",
-        )
+        context: BrowserContext = _launch_browser(pw, headless=headless, channel=browser_channel)
         page = context.new_page()
 
         print(f"Collecting video URLs for {username} ...")
@@ -287,7 +338,7 @@ def scrape_profile(
     return summary
 
 
-def login(start_url: str = "https://www.tiktok.com/login") -> None:
+def login(start_url: str = "https://www.tiktok.com/login", browser_channel: str | None = "chrome") -> None:
     """Open a persistent Chromium so the user can log in to TikTok by hand.
 
     Cookies are saved to `.playwright-profile/` and reused by future `scrape` runs,
@@ -295,13 +346,7 @@ def login(start_url: str = "https://www.tiktok.com/login") -> None:
     """
     PROFILE_DIR.mkdir(parents=True, exist_ok=True)
     with sync_playwright() as pw:
-        context = pw.chromium.launch_persistent_context(
-            user_data_dir=str(PROFILE_DIR),
-            headless=False,
-            user_agent=USER_AGENT,
-            viewport={"width": 1280, "height": 900},
-            locale="en-US",
-        )
+        context = _launch_browser(pw, headless=False, channel=browser_channel)
         page = context.new_page()
         page.goto(start_url, wait_until="domcontentloaded")
         print("\n" + "=" * 60)

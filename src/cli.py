@@ -14,9 +14,14 @@ def _build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="tiktok-lebanon", description="TikTok comment trend analyzer for Lebanese cities.")
     sub = p.add_subparsers(dest="command", required=True)
 
-    sub.add_parser(
+    l = sub.add_parser(
         "login",
         help="Open a browser so you can log in to TikTok once; cookies are saved for later scrapes.",
+    )
+    l.add_argument(
+        "--browser",
+        default="chrome",
+        help="Browser channel: chrome | msedge | chromium (default: chrome — least bot-detected).",
     )
 
     s = sub.add_parser("scrape", help="Scrape a TikTok profile's videos and comments.")
@@ -25,6 +30,7 @@ def _build_parser() -> argparse.ArgumentParser:
     s.add_argument("--max-comments", type=int, default=100, help="Max comments per video (default: 100).")
     s.add_argument("--headless", action="store_true", help="Run browser headless (default: visible).")
     s.add_argument("--refresh", action="store_true", help="Re-scrape videos already in cache.")
+    s.add_argument("--browser", default="chrome", help="Browser channel: chrome | msedge | chromium.")
 
     a = sub.add_parser("analyze", help="Aggregate cached comments into a ranked report.")
     a.add_argument("--username", default=None, help="Used to build clickable video URLs in the report.")
@@ -37,6 +43,7 @@ def _build_parser() -> argparse.ArgumentParser:
     r.add_argument("--max-comments", type=int, default=100)
     r.add_argument("--headless", action="store_true")
     r.add_argument("--refresh", action="store_true")
+    r.add_argument("--browser", default="chrome")
     r.add_argument("--fuzz-threshold", type=int, default=DEFAULT_FUZZ_THRESHOLD)
     r.add_argument("--min-alias-len", type=int, default=DEFAULT_MIN_ALIAS_LEN)
 
@@ -47,16 +54,19 @@ def main(argv: list[str] | None = None) -> int:
     args = _build_parser().parse_args(argv)
 
     if args.command == "login":
-        login()
+        channel = None if args.browser == "chromium" else args.browser
+        login(browser_channel=channel)
         return 0
 
     if args.command == "scrape":
+        channel = None if args.browser == "chromium" else args.browser
         summary = scrape_profile(
             username=args.username,
             max_videos=args.max_videos,
             max_comments_per_video=args.max_comments,
             headless=args.headless,
             refresh=args.refresh,
+            browser_channel=channel,
         )
         print(f"\nDone. {summary}")
         return 0
@@ -70,12 +80,14 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.command == "run":
+        channel = None if args.browser == "chromium" else args.browser
         scrape_profile(
             username=args.username,
             max_videos=args.max_videos,
             max_comments_per_video=args.max_comments,
             headless=args.headless,
             refresh=args.refresh,
+            browser_channel=channel,
         )
         analyze(
             username=args.username,
