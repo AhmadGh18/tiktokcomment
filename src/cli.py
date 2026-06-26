@@ -37,6 +37,13 @@ def _build_parser() -> argparse.ArgumentParser:
     s.add_argument("--headless", action="store_true", help="Run browser headless (default: visible).")
     s.add_argument("--refresh", action="store_true", help="Re-scrape videos already in cache.")
     s.add_argument("--browser", default="chrome", help="Browser channel: chrome | msedge | chromium.")
+    s.add_argument(
+        "--attach",
+        type=int,
+        default=None,
+        metavar="PORT",
+        help="Attach to a Chrome you already started with --remote-debugging-port=PORT. Bypasses bot detection.",
+    )
 
     a = sub.add_parser("analyze", help="Aggregate cached comments into a ranked report.")
     a.add_argument("--username", default=None, help="Used to build clickable video URLs in the report.")
@@ -50,6 +57,7 @@ def _build_parser() -> argparse.ArgumentParser:
     r.add_argument("--headless", action="store_true")
     r.add_argument("--refresh", action="store_true")
     r.add_argument("--browser", default="chrome")
+    r.add_argument("--attach", type=int, default=None, metavar="PORT")
     r.add_argument("--fuzz-threshold", type=int, default=DEFAULT_FUZZ_THRESHOLD)
     r.add_argument("--min-alias-len", type=int, default=DEFAULT_MIN_ALIAS_LEN)
 
@@ -78,6 +86,7 @@ def main(argv: list[str] | None = None) -> int:
             headless=args.headless,
             refresh=args.refresh,
             browser_channel=channel,
+            attach_port=args.attach,
         )
         print(f"\nDone. {summary}")
         return 0
@@ -99,6 +108,7 @@ def main(argv: list[str] | None = None) -> int:
             headless=args.headless,
             refresh=args.refresh,
             browser_channel=channel,
+            attach_port=args.attach,
         )
         analyze(
             username=args.username,

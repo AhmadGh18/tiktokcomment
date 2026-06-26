@@ -172,15 +172,39 @@ def _scroll_until_stable(page: Page, scroll_target: str, max_rounds: int, target
     return last
 
 
+def _wait_for_human(page: Page, what: str) -> None:
+    """Pause and ask the user to solve a CAPTCHA / log in / dismiss a banner in the visible browser."""
+    print()
+    print("=" * 60)
+    print(f"  TikTok did not load the {what} automatically.")
+    print("  Look at the browser window — solve any CAPTCHA (slider/puzzle),")
+    print("  dismiss any banner, or scroll a bit so the content appears.")
+    print("  Then come back here and press ENTER to continue.")
+    print("=" * 60)
+    try:
+        input("Press ENTER when ready... ")
+    except EOFError:
+        pass
+
+
 def _collect_video_urls(page: Page, username: str, max_videos: int | None) -> list[str]:
     handle = username.lstrip("@")
     profile_url = f"https://www.tiktok.com/@{handle}"
     page.goto(profile_url, wait_until="domcontentloaded")
-    try:
-        page.wait_for_selector("a[href*='/video/']", timeout=15_000)
-    except PlaywrightTimeoutError:
-        print(f"  no videos visible yet on {profile_url}; the page may be private or blocked")
-        return []
+
+    for attempt in range(3):
+        try:
+            page.wait_for_selector("a[href*='/video/']", timeout=15_000)
+            break
+        except PlaywrightTimeoutError:
+            if attempt == 2:
+                print(f"  no videos after 3 attempts on {profile_url}; giving up")
+                return []
+            _wait_for_human(page, "profile videos")
+            try:
+                page.reload(wait_until="domcontentloaded")
+            except Exception:
+                pass
 
     seen: list[str] = []
     seen_set: set[str] = set()
@@ -242,10 +266,16 @@ def _scrape_comments_for_video(
     page.on("response", _on_response)
     try:
         page.goto(video_url, wait_until="domcontentloaded")
-        try:
-            page.wait_for_selector("[data-e2e='comment-level-1'], [data-e2e='comment-item']", timeout=15_000)
-        except PlaywrightTimeoutError:
-            pass
+        for attempt in range(2):
+            try:
+                page.wait_for_selector(
+                    "[data-e2e='comment-level-1'], [data-e2e='comment-item']", timeout=15_000
+                )
+                break
+            except PlaywrightTimeoutError:
+                if attempt == 1:
+                    break
+                _wait_for_human(page, f"comments for video {video_id}")
 
         for _ in range(40):
             if len(captured) >= max_comments:
@@ -297,16 +327,28 @@ def scrape_profile(
     headless: bool = False,
     refresh: bool = False,
     browser_channel: str | None = "chrome",
+    attach_port: int | None = None,
 ) -> dict:
-    """Scrape a TikTok profile's videos and comments. Returns a summary dict."""
+    """Scrape a TikTok profile's videos and comments. Returns a summary dict.
+
+    If `attach_port` is set, connect to an already-running Chrome with
+    --remote-debugging-port=<port> instead of launching our own. This is the most
+    reliable way past TikTok's bot detection because TikTok sees your real Chrome.
+    """
     PROFILE_DIR.mkdir(parents=True, exist_ok=True)
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
     summary = {"username": username, "videos_total": 0, "videos_scraped": 0, "videos_cached": 0, "comments_collected": 0}
 
     with sync_playwright() as pw:
-        context: BrowserContext = _launch_browser(pw, headless=headless, channel=browser_channel)
-        page = context.new_page()
+        if attach_port:
+            print(f"  attaching to Chrome on port {attach_port} ...")
+            browser = pw.chromium.connect_over_cdp(f"http://localhost:{attach_port}")
+            context = browser.contexts[0] if browser.contexts else browser.new_context()
+            page = context.pages[0] if context.pages else context.new_page()
+        else:
+            context = _launch_browser(pw, headless=headless, channel=browser_channel)
+            page = context.new_page()
 
         print(f"Collecting video URLs for {username} ...")
         video_urls = _collect_video_urls(page, username, max_videos)
@@ -334,7 +376,8 @@ def scrape_profile(
             print(f"    saved {len(comments)} comments")
             _polite_sleep(2.0, 4.5)
 
-        context.close()
+        if not attach_port:
+            context.close()
     return summary
 
 
