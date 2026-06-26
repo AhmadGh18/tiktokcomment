@@ -7,7 +7,7 @@ import sys
 
 from .matcher import DEFAULT_FUZZ_THRESHOLD, DEFAULT_MIN_ALIAS_LEN
 from .report import analyze
-from .scraper import login, scrape_profile
+from .scraper import import_cookies, login, scrape_profile
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -23,6 +23,12 @@ def _build_parser() -> argparse.ArgumentParser:
         default="chrome",
         help="Browser channel: chrome | msedge | chromium (default: chrome — least bot-detected).",
     )
+
+    ic = sub.add_parser(
+        "import-cookies",
+        help="Import a cookies.json/cookies.txt exported from your regular Chrome (see SETUP.md).",
+    )
+    ic.add_argument("cookies_file", help="Path to the cookies file you exported.")
 
     s = sub.add_parser("scrape", help="Scrape a TikTok profile's videos and comments.")
     s.add_argument("username", help="TikTok handle, e.g. @your_handle (the @ is optional)")
@@ -56,6 +62,11 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "login":
         channel = None if args.browser == "chromium" else args.browser
         login(browser_channel=channel)
+        return 0
+
+    if args.command == "import-cookies":
+        from pathlib import Path
+        import_cookies(Path(args.cookies_file))
         return 0
 
     if args.command == "scrape":

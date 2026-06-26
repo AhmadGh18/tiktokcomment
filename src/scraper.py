@@ -362,6 +362,77 @@ def login(start_url: str = "https://www.tiktok.com/login", browser_channel: str 
     print("Session saved. You can now run `scrape`.")
 
 
+def import_cookies(cookies_path: Path, browser_channel: str | None = "chrome") -> int:
+    """Inject cookies exported from your regular Chrome (via the Cookie-Editor extension)
+    into the persistent profile, so future scrapes look logged-in to TikTok.
+
+    Accepts either:
+      - Cookie-Editor JSON export (a list of cookie objects), or
+      - Netscape cookies.txt format.
+    """
+    PROFILE_DIR.mkdir(parents=True, exist_ok=True)
+    cookies_path = Path(cookies_path)
+    text = cookies_path.read_text(encoding="utf-8")
+
+    cookies: list[dict] = []
+    text_stripped = text.lstrip()
+    if text_stripped.startswith("["):
+        raw = json.loads(text)
+        for c in raw:
+            cookie = {
+                "name": c["name"],
+                "value": c["value"],
+                "domain": c.get("domain", ".tiktok.com"),
+                "path": c.get("path", "/"),
+                "httpOnly": bool(c.get("httpOnly", False)),
+                "secure": bool(c.get("secure", False)),
+            }
+            same_site = c.get("sameSite")
+            if isinstance(same_site, str):
+                same_site_norm = same_site.lower()
+                if same_site_norm in ("no_restriction", "none", "unspecified"):
+                    cookie["sameSite"] = "None"
+                elif same_site_norm == "lax":
+                    cookie["sameSite"] = "Lax"
+                elif same_site_norm == "strict":
+                    cookie["sameSite"] = "Strict"
+            exp = c.get("expirationDate") or c.get("expires")
+            if exp and not c.get("session"):
+                cookie["expires"] = float(exp)
+            cookies.append(cookie)
+    else:
+        for line in text.splitlines():
+            if not line or line.startswith("#"):
+                continue
+            parts = line.split("\t")
+            if len(parts) < 7:
+                continue
+            domain, _flag, path, secure, expires, name, value = parts[:7]
+            cookies.append(
+                {
+                    "name": name,
+                    "value": value,
+                    "domain": domain,
+                    "path": path,
+                    "secure": secure.upper() == "TRUE",
+                    "expires": float(expires) if expires.isdigit() else -1,
+                }
+            )
+
+    if not cookies:
+        print("No cookies found in file.")
+        return 0
+
+    with sync_playwright() as pw:
+        context = _launch_browser(pw, headless=True, channel=browser_channel)
+        context.add_cookies(cookies)
+        context.close()
+
+    print(f"Imported {len(cookies)} cookies into {PROFILE_DIR}")
+    print("You can now run `scrape` — TikTok should see you as logged-in.")
+    return len(cookies)
+
+
 def load_cached_comments(cache_dir: Path = CACHE_DIR) -> Iterable[CommentRecord]:
     if not cache_dir.exists():
         return []
