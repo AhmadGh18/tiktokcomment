@@ -7,12 +7,17 @@ import sys
 
 from .matcher import DEFAULT_FUZZ_THRESHOLD, DEFAULT_MIN_ALIAS_LEN
 from .report import analyze
-from .scraper import scrape_profile
+from .scraper import login, scrape_profile
 
 
 def _build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="tiktok-lebanon", description="TikTok comment trend analyzer for Lebanese cities.")
     sub = p.add_subparsers(dest="command", required=True)
+
+    sub.add_parser(
+        "login",
+        help="Open a browser so you can log in to TikTok once; cookies are saved for later scrapes.",
+    )
 
     s = sub.add_parser("scrape", help="Scrape a TikTok profile's videos and comments.")
     s.add_argument("username", help="TikTok handle, e.g. @your_handle (the @ is optional)")
@@ -40,6 +45,10 @@ def _build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = _build_parser().parse_args(argv)
+
+    if args.command == "login":
+        login()
+        return 0
 
     if args.command == "scrape":
         summary = scrape_profile(

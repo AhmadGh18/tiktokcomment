@@ -287,6 +287,36 @@ def scrape_profile(
     return summary
 
 
+def login(start_url: str = "https://www.tiktok.com/login") -> None:
+    """Open a persistent Chromium so the user can log in to TikTok by hand.
+
+    Cookies are saved to `.playwright-profile/` and reused by future `scrape` runs,
+    which dramatically reduces TikTok's bot challenges.
+    """
+    PROFILE_DIR.mkdir(parents=True, exist_ok=True)
+    with sync_playwright() as pw:
+        context = pw.chromium.launch_persistent_context(
+            user_data_dir=str(PROFILE_DIR),
+            headless=False,
+            user_agent=USER_AGENT,
+            viewport={"width": 1280, "height": 900},
+            locale="en-US",
+        )
+        page = context.new_page()
+        page.goto(start_url, wait_until="domcontentloaded")
+        print("\n" + "=" * 60)
+        print("A Chromium window is open.")
+        print("Log in to TikTok in that window (any method works).")
+        print("Once you see your TikTok feed, return here and press ENTER.")
+        print("=" * 60 + "\n")
+        try:
+            input("Press ENTER after you've logged in to save the session... ")
+        except EOFError:
+            pass
+        context.close()
+    print("Session saved. You can now run `scrape`.")
+
+
 def load_cached_comments(cache_dir: Path = CACHE_DIR) -> Iterable[CommentRecord]:
     if not cache_dir.exists():
         return []
